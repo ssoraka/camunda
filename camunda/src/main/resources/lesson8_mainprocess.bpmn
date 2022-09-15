@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1s82f9v" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.3.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="Lesson8_mainprocess" name="Основной процесс из урока 8" isExecutable="true">
+    <bpmn:extensionElements />
+    <bpmn:startEvent id="start" camunda:asyncBefore="true">
+      <bpmn:extensionElements />
+      <bpmn:outgoing>Flow_1lxqgyh</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="end" camunda:asyncBefore="true">
+      <bpmn:incoming>Flow_0e6uu7h</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1lxqgyh" sourceRef="start" targetRef="set_main_process_variable" />
+    <bpmn:sequenceFlow id="Flow_0xgs9qt" sourceRef="set_main_process_variable" targetRef="call_activity" />
+    <bpmn:sequenceFlow id="Flow_0e6uu7h" sourceRef="call_activity" targetRef="end" />
+    <bpmn:task id="set_main_process_variable" name="Установить переменные основного процесса" camunda:asyncBefore="true">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="переменная_основного_процесса_1">Куда подевалась Гонзало Лира?</camunda:outputParameter>
+          <camunda:outputParameter name="переменная_основного_процесса_2">Куда подевался Джулиан Ассанж?</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1lxqgyh</bpmn:incoming>
+      <bpmn:outgoing>Flow_0xgs9qt</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:callActivity id="call_activity" name="Вызов подпроцесса" camunda:asyncBefore="true" calledElement="Lesson8_subprocess">
+      <bpmn:extensionElements>
+        <camunda:in sourceExpression="&#39;Привет из основного процесса&#39;" target="константа_основного_процесса" />
+        <camunda:out source="переменная_подпроцесса_1" target="переменная_подпроцесса_1" />
+        <camunda:in source="переменная_основного_процесса_1" target="переменная_подпроцесса_1" />
+        <camunda:in source="переменная_основного_процесса_2" target="переменная_подпроцесса_2" />
+        <camunda:in source="переменная_основного_процесса_1" target="переменная_основного_процесса_1" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0xgs9qt</bpmn:incoming>
+      <bpmn:outgoing>Flow_0e6uu7h</bpmn:outgoing>
+    </bpmn:callActivity>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Lesson8_mainprocess">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="start">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0cnqcr8_di" bpmnElement="end">
+        <dc:Bounds x="692" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0pxgqmi_di" bpmnElement="set_main_process_variable">
+        <dc:Bounds x="260" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_02z9p13_di" bpmnElement="call_activity">
+        <dc:Bounds x="470" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1lxqgyh_di" bpmnElement="Flow_1lxqgyh">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="260" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xgs9qt_di" bpmnElement="Flow_0xgs9qt">
+        <di:waypoint x="360" y="117" />
+        <di:waypoint x="470" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0e6uu7h_di" bpmnElement="Flow_0e6uu7h">
+        <di:waypoint x="570" y="117" />
+        <di:waypoint x="692" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
