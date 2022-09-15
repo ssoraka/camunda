@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1s82f9v" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.3.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="Exclusive_gateway" name="Процесс из урока 7" isExecutable="true">
+    <bpmn:extensionElements />
+    <bpmn:startEvent id="start" camunda:asyncBefore="true">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="номер_делегата" label="Номер делегата" type="string" defaultValue="2" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0jo3rhs</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0jo3rhs" sourceRef="start" targetRef="which_delegate_opening_gateway" />
+    <bpmn:endEvent id="end" camunda:asyncBefore="true">
+      <bpmn:incoming>Flow_1mkzqdw</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0gxvizp" sourceRef="delegate_1" targetRef="Gateway_17gau6r" />
+    <bpmn:serviceTask id="delegate_1" name="Делегат 1" camunda:asyncBefore="true" camunda:delegateExpression="#{Делегат1ИзУрока7}">
+      <bpmn:extensionElements />
+      <bpmn:incoming>which_delegate_opening_gateway_to_delegate_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_0gxvizp</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="which_delegate_opening_gateway" name="Какой делегат выполнить?" camunda:asyncBefore="true" default="which_delegate_opening_gateway_to_delegate_1">
+      <bpmn:incoming>Flow_0jo3rhs</bpmn:incoming>
+      <bpmn:outgoing>which_delegate_opening_gateway_to_delegate_1</bpmn:outgoing>
+      <bpmn:outgoing>which_delegate_opening_gateway_to_delegate_2</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="which_delegate_opening_gateway_to_delegate_1" sourceRef="which_delegate_opening_gateway" targetRef="delegate_1" />
+    <bpmn:exclusiveGateway id="Gateway_17gau6r">
+      <bpmn:incoming>Flow_0gxvizp</bpmn:incoming>
+      <bpmn:incoming>Flow_0uicmk2</bpmn:incoming>
+      <bpmn:outgoing>Flow_1mkzqdw</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1mkzqdw" sourceRef="Gateway_17gau6r" targetRef="end" />
+    <bpmn:sequenceFlow id="Flow_0uicmk2" sourceRef="delegate_2" targetRef="Gateway_17gau6r" />
+    <bpmn:sequenceFlow id="which_delegate_opening_gateway_to_delegate_2" sourceRef="which_delegate_opening_gateway" targetRef="delegate_2">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${номер_делегата == "2"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask id="delegate_2" name="Делегат 2" camunda:asyncBefore="true" camunda:delegateExpression="#{Делегат2ИзУрока7}">
+      <bpmn:incoming>which_delegate_opening_gateway_to_delegate_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_0uicmk2</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Exclusive_gateway">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="start">
+        <dc:Bounds x="179" y="239" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0cnqcr8_di" bpmnElement="end">
+        <dc:Bounds x="692" y="239" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1uvb44g_di" bpmnElement="delegate_1">
+        <dc:Bounds x="370" y="217" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1jiuprp_di" bpmnElement="which_delegate_opening_gateway" isMarkerVisible="true">
+        <dc:Bounds x="265" y="232" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="254" y="289" width="73" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_17gau6r_di" bpmnElement="Gateway_17gau6r" isMarkerVisible="true">
+        <dc:Bounds x="555" y="232" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0x08nsy_di" bpmnElement="delegate_2">
+        <dc:Bounds x="370" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0jo3rhs_di" bpmnElement="Flow_0jo3rhs">
+        <di:waypoint x="215" y="257" />
+        <di:waypoint x="265" y="257" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1mkzqdw_di" bpmnElement="Flow_1mkzqdw">
+        <di:waypoint x="605" y="257" />
+        <di:waypoint x="692" y="257" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pzmhpc_di" bpmnElement="which_delegate_opening_gateway_to_delegate_1">
+        <di:waypoint x="315" y="257" />
+        <di:waypoint x="370" y="257" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0gxvizp_di" bpmnElement="Flow_0gxvizp">
+        <di:waypoint x="470" y="257" />
+        <di:waypoint x="555" y="257" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bx6p25_di" bpmnElement="which_delegate_opening_gateway_to_delegate_2">
+        <di:waypoint x="290" y="232" />
+        <di:waypoint x="290" y="120" />
+        <di:waypoint x="370" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0uicmk2_di" bpmnElement="Flow_0uicmk2">
+        <di:waypoint x="470" y="120" />
+        <di:waypoint x="580" y="120" />
+        <di:waypoint x="580" y="232" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
