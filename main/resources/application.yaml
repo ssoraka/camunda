@@ -5,3 +5,6 @@ camunda.bpm:
     firstName: Demo
   filter:
     create: All tasks
+
+server:
+  port: 8081
