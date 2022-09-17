@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0n0bno8" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.3.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.0.0">
+  <decision id="EU_Membership" name="Является ли страна частью ЕС?">
+    <decisionTable id="DecisionTable_1xbbdgd" hitPolicy="FIRST">
+      <input id="Input_1" label="СТРАНА">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>country</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="ЧЛЕН_ЕС" name="eu_member" typeRef="boolean" />
+      <rule id="DecisionRule_1qejssk">
+        <inputEntry id="UnaryTests_0hwsry8">
+          <text>"Словакия"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ecwn13">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1shy3da">
+        <inputEntry id="UnaryTests_0rr8vwl">
+          <text>"Словения"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_141w2lu">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0jqsuxs">
+        <inputEntry id="UnaryTests_0miv91m">
+          <text>"Шведция"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0td3p6d">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1fq5p4p">
+        <inputEntry id="UnaryTests_05nepfq">
+          <text>"Испания"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0f72fs2">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1dvsnnl">
+        <inputEntry id="UnaryTests_1nmyjul">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08mxu4v">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="EU_Membership">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
