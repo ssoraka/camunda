@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1s82f9v" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.3.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:collaboration id="Collaboration_03petu8">
+    <bpmn:participant id="Participant_1y6wdq7" name="Система на базе Камунды" processRef="Mail_Process_12" />
+    <bpmn:participant id="Participant_1hctc1s" name="Сторонняя система" />
+    <bpmn:messageFlow id="Flow_1vyd3gp" sourceRef="Participant_1hctc1s" targetRef="foreign_system_completed_work" />
+    <bpmn:messageFlow id="Flow_0wlj0a9" sourceRef="set_process_variable_parameter1" targetRef="Participant_1hctc1s" />
+  </bpmn:collaboration>
+  <bpmn:process id="Mail_Process_12" name="Процесс из урока 12" isExecutable="true">
+    <bpmn:extensionElements />
+    <bpmn:startEvent id="start" camunda:asyncBefore="true">
+      <bpmn:outgoing>Flow_0jo3rhs</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="set_process_variable_parameter1" name="Запустить долгий процесс в сторонней системе" camunda:asyncBefore="true">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_0jo3rhs</bpmn:incoming>
+      <bpmn:outgoing>Flow_1iwxxym</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:intermediateCatchEvent id="foreign_system_completed_work" name="Сторонняя система завершила работу" camunda:asyncBefore="true">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_1iwxxym</bpmn:incoming>
+      <bpmn:outgoing>Flow_0yfm14d</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_07dm7n0" messageRef="Message_1irtj88" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:exclusiveGateway id="Gateway_1yo4ri3" name="Сторонняя система выполнила работу упешно?" default="Flow_0thqa68">
+      <bpmn:incoming>Flow_0yfm14d</bpmn:incoming>
+      <bpmn:outgoing>Flow_1fesv8z</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0thqa68</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="end" camunda:asyncBefore="true">
+      <bpmn:incoming>Flow_10dk6hw</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="Gateway_1tjvf78">
+      <bpmn:incoming>Flow_1fesv8z</bpmn:incoming>
+      <bpmn:incoming>Flow_147v4zt</bpmn:incoming>
+      <bpmn:outgoing>Flow_10dk6hw</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Activity_1fcxnz6" name="Сделать что-то">
+      <bpmn:incoming>Flow_0thqa68</bpmn:incoming>
+      <bpmn:outgoing>Flow_147v4zt</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0jo3rhs" sourceRef="start" targetRef="set_process_variable_parameter1" />
+    <bpmn:sequenceFlow id="Flow_1iwxxym" sourceRef="set_process_variable_parameter1" targetRef="foreign_system_completed_work" />
+    <bpmn:sequenceFlow id="Flow_0yfm14d" sourceRef="foreign_system_completed_work" targetRef="Gateway_1yo4ri3" />
+    <bpmn:sequenceFlow id="Flow_1fesv8z" name="Да" sourceRef="Gateway_1yo4ri3" targetRef="Gateway_1tjvf78">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${FOREIGN_CALL_SUCCESSFUL}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0thqa68" name="Нет" sourceRef="Gateway_1yo4ri3" targetRef="Activity_1fcxnz6" />
+    <bpmn:sequenceFlow id="Flow_10dk6hw" sourceRef="Gateway_1tjvf78" targetRef="end" />
+    <bpmn:sequenceFlow id="Flow_147v4zt" sourceRef="Activity_1fcxnz6" targetRef="Gateway_1tjvf78" />
+  </bpmn:process>
+  <bpmn:message id="Message_1irtj88" name="foreign_system_work_completed" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_03petu8">
+      <bpmndi:BPMNShape id="Participant_1y6wdq7_di" bpmnElement="Participant_1y6wdq7" isHorizontal="true">
+        <dc:Bounds x="129" y="240" width="721" height="330" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="start">
+        <dc:Bounds x="179" y="339" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ps47i1_di" bpmnElement="set_process_variable_parameter1">
+        <dc:Bounds x="270" y="317" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0jh8p9z_di" bpmnElement="foreign_system_completed_work">
+        <dc:Bounds x="412" y="339" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="402" y="382" width="57" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1yo4ri3_di" bpmnElement="Gateway_1yo4ri3" isMarkerVisible="true">
+        <dc:Bounds x="485" y="332" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="470" y="273" width="83" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0cnqcr8_di" bpmnElement="end">
+        <dc:Bounds x="762" y="339" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1tjvf78_di" bpmnElement="Gateway_1tjvf78" isMarkerVisible="true">
+        <dc:Bounds x="675" y="332" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1fcxnz6_di" bpmnElement="Activity_1fcxnz6">
+        <dc:Bounds x="550" y="430" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0jo3rhs_di" bpmnElement="Flow_0jo3rhs">
+        <di:waypoint x="215" y="357" />
+        <di:waypoint x="270" y="357" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1iwxxym_di" bpmnElement="Flow_1iwxxym">
+        <di:waypoint x="370" y="357" />
+        <di:waypoint x="412" y="357" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0yfm14d_di" bpmnElement="Flow_0yfm14d">
+        <di:waypoint x="448" y="357" />
+        <di:waypoint x="485" y="357" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1fesv8z_di" bpmnElement="Flow_1fesv8z">
+        <di:waypoint x="535" y="357" />
+        <di:waypoint x="675" y="357" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="598" y="339" width="14" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0thqa68_di" bpmnElement="Flow_0thqa68">
+        <di:waypoint x="510" y="382" />
+        <di:waypoint x="510" y="470" />
+        <di:waypoint x="550" y="470" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="516" y="423" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10dk6hw_di" bpmnElement="Flow_10dk6hw">
+        <di:waypoint x="725" y="357" />
+        <di:waypoint x="762" y="357" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_147v4zt_di" bpmnElement="Flow_147v4zt">
+        <di:waypoint x="650" y="470" />
+        <di:waypoint x="700" y="470" />
+        <di:waypoint x="700" y="382" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_1ybbxez_di" bpmnElement="Participant_1hctc1s" isHorizontal="true">
+        <dc:Bounds x="129" y="80" width="721" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1vyd3gp_di" bpmnElement="Flow_1vyd3gp">
+        <di:waypoint x="430" y="140" />
+        <di:waypoint x="430" y="339" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wlj0a9_di" bpmnElement="Flow_0wlj0a9">
+        <di:waypoint x="320" y="317" />
+        <di:waypoint x="320" y="140" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
