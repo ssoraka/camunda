@@ -11,6 +11,9 @@
     <modules>
         <module>camunda</module>
         <module>external</module>
+        <module>lesson16/worker1-engine</module>
+        <module>lesson16/dispatcher-engine</module>
+        <module>lesson16/worker2-engine</module>
     </modules>
 
     <properties>

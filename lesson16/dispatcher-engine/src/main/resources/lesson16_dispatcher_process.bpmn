@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_12ubt5g" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+    <bpmn:process id="lesson16_dispatcher_process" name="Процесс-диспетчер из урока 16" isExecutable="true">
+        <bpmn:startEvent id="start">
+            <bpmn:outgoing>Flow_0blc40e</bpmn:outgoing>
+        </bpmn:startEvent>
+        <bpmn:sequenceFlow id="Flow_0blc40e" sourceRef="start" targetRef="call_right_process" />
+        <bpmn:callActivity id="call_right_process" name="Вызвать нужный процесс" camunda:asyncBefore="true" calledElement="${PROCESS_TO_CALL}">
+            <bpmn:incoming>Flow_0blc40e</bpmn:incoming>
+            <bpmn:outgoing>Flow_1dxja2p</bpmn:outgoing>
+        </bpmn:callActivity>
+        <bpmn:endEvent id="end">
+            <bpmn:incoming>Flow_1dxja2p</bpmn:incoming>
+        </bpmn:endEvent>
+        <bpmn:sequenceFlow id="Flow_1dxja2p" sourceRef="call_right_process" targetRef="end" />
+        <bpmn:textAnnotation id="TextAnnotation_0clwvw7">
+            <bpmn:text>Процесс запускается с переменной PROCESS_TO_CALL</bpmn:text>
+        </bpmn:textAnnotation>
+        <bpmn:association id="Association_1r37n26" sourceRef="start" targetRef="TextAnnotation_0clwvw7" />
+    </bpmn:process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+        <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="lesson16_dispatcher_process">
+            <bpmndi:BPMNShape id="TextAnnotation_0clwvw7_di" bpmnElement="TextAnnotation_0clwvw7">
+                <dc:Bounds x="147" y="80" width="200" height="40" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="Flow_0blc40e_di" bpmnElement="Flow_0blc40e">
+                <di:waypoint x="215" y="287" />
+                <di:waypoint x="270" y="287" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1dxja2p_di" bpmnElement="Flow_1dxja2p">
+                <di:waypoint x="370" y="287" />
+                <di:waypoint x="432" y="287" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="start">
+                <dc:Bounds x="179" y="269" width="36" height="36" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_0ha8ik0_di" bpmnElement="call_right_process">
+                <dc:Bounds x="270" y="247" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_08tc73z_di" bpmnElement="end">
+                <dc:Bounds x="432" y="269" width="36" height="36" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="Association_1r37n26_di" bpmnElement="Association_1r37n26">
+                <di:waypoint x="197" y="269" />
+                <di:waypoint x="197" y="120" />
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</bpmn:definitions>

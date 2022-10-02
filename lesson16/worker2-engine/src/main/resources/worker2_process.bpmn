@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1hjtatp" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+    <bpmn:process id="Worker2_Process" name="Процесс в движке-обработчике 2" isExecutable="true">
+        <bpmn:startEvent id="start">
+            <bpmn:outgoing>Flow_0wjd7ba</bpmn:outgoing>
+        </bpmn:startEvent>
+        <bpmn:sequenceFlow id="Flow_0wjd7ba" sourceRef="start" targetRef="Activity_1u4vqlg" />
+        <bpmn:endEvent id="end" camunda:asyncBefore="true">
+            <bpmn:incoming>Flow_0r3he08</bpmn:incoming>
+        </bpmn:endEvent>
+        <bpmn:sequenceFlow id="Flow_0r3he08" sourceRef="Activity_1u4vqlg" targetRef="end" />
+        <bpmn:serviceTask id="Activity_1u4vqlg" name="Вызвать делегат 2" camunda:asyncBefore="true" camunda:delegateExpression="#{Делегат2}">
+            <bpmn:incoming>Flow_0wjd7ba</bpmn:incoming>
+            <bpmn:outgoing>Flow_0r3he08</bpmn:outgoing>
+        </bpmn:serviceTask>
+    </bpmn:process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+        <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Worker2_Process">
+            <bpmndi:BPMNEdge id="Flow_0wjd7ba_di" bpmnElement="Flow_0wjd7ba">
+                <di:waypoint x="215" y="117" />
+                <di:waypoint x="270" y="117" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0r3he08_di" bpmnElement="Flow_0r3he08">
+                <di:waypoint x="370" y="117" />
+                <di:waypoint x="432" y="117" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="start">
+                <dc:Bounds x="179" y="99" width="36" height="36" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_1kumv5c_di" bpmnElement="end">
+                <dc:Bounds x="432" y="99" width="36" height="36" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_1f4wldm_di" bpmnElement="Activity_1u4vqlg">
+                <dc:Bounds x="270" y="77" width="100" height="80" />
+            </bpmndi:BPMNShape>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</bpmn:definitions>
